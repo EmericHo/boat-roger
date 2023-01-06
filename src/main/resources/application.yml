@@ -1,0 +1,24 @@
+spring.datasource:
+  platform: postgres
+  url: jdbc:postgresql://localhost:5432/postgres
+  username: root
+  password: root
+  driverClassName: org.postgresql.Driver
+  initialization-mode: never #always
+  sqlScriptEncoding: UTF-8
+
+spring.jpa:
+  properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL82Dialect
+  generate-ddl: true
+  hibernate.ddl-auto: none #create
+  show-sql: false
+  database: POSTGRESQL
+
+boat.jwt:
+  issuer: org.example
+  sign-key: Y2hvdWNyb3V0ZVJvZ2Vy
+  header-name: Authorization
+  time-to-live: 36000
+
+server:
+  port: 8080

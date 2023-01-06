@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  postgres-boatdb:
+    image: postgres:latest
+    container_name: postgres-boatdb
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      PGDATA: /data/postgres
+      POSTGRES_DB: boatdb
+    volumes:
+      - postgres-boat:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres-boatdb
+    restart: unless-stopped
+
+networks:
+  postgres-boatdb:
+    driver: bridge
+
+volumes:
+  postgres-boat:
