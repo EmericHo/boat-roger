@@ -25,9 +25,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -65,9 +62,12 @@ public class SpringSecurityConfiguration {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         List<String> profiles = Arrays.asList(environment.getActiveProfiles());
 
-        if (profiles.isEmpty() || profiles.contains(LOCAL_PROFILE)) http.headers().frameOptions().disable();
-        else
+        if (profiles.isEmpty() || profiles.contains(LOCAL_PROFILE)) {
+            http.headers().frameOptions().disable();
+        } else {
             http.headers().frameOptions().sameOrigin();
+        }
+        http.cors();
 
         http
                 .csrf().disable()
@@ -121,23 +121,4 @@ public class SpringSecurityConfiguration {
         }
 
     };
-
-    /**
-     * Enable CORS from all origins.
-     *
-     * @return a CorsFilter bean
-     */
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(Boolean.TRUE);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        config.addExposedHeader("Content-Disposition");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
-
 }

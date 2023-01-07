@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
 @RestController
+@CrossOrigin(origins = {"http://localhost:8080", "http://localhost:3001"}, methods = {POST, GET, DELETE, PATCH})
 @RequestMapping(path = "/boats", produces = "application/json; charset=UTF-8")
 public class BoatController {
 
@@ -42,5 +45,5 @@ public class BoatController {
     public List<BoatResponse> getBoats() {
         return boatService.getAllBoats();
     }
-    
+
 }

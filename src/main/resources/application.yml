@@ -22,3 +22,8 @@ boat.jwt:
 
 server:
   port: 8080
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: DEBUG

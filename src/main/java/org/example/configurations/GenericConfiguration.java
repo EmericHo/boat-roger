@@ -19,5 +19,5 @@ public class GenericConfiguration {
     public Clock clock() {
         return Clock.systemDefaultZone();
     }
-
+    
 }
